@@ -2,4 +2,5 @@
 .vercel/
 node_modules/
 css/tailwind.generated.css
+config/config.js
 dist/
