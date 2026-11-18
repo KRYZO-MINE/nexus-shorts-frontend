@@ -8,6 +8,7 @@ if (!/^https?:\/\/[^/]+/i.test(apiBaseUrl)) {
 
 const target = path.join(__dirname, "..", "config", "config.js");
 const config = `window.NEXUS_CONFIG = Object.freeze({ API_BASE_URL: ${JSON.stringify(apiBaseUrl.replace(/\/+$/, ""))} });\n`;
+fs.mkdirSync(path.dirname(target), { recursive: true });
 fs.writeFileSync(target, config, "utf8");
 
 const root = path.join(__dirname, "..");
