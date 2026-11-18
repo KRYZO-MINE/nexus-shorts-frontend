@@ -1,0 +1,15 @@
+{
+  "name": "nexus-shorts-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "css:build": "tailwindcss -i ./css/tailwind.input.css -o ./css/tailwind.generated.css --minify",
+    "build": "npm run css:build && node scripts/build-config.js"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

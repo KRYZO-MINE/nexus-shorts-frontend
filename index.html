@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b12">
+  <meta name="description" content="Create vertical video clips with Nexus Shorts Studio.">
+  <title>Nexus Shorts Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tailwind.generated.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-ink text-slate-100">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" data-page="dashboard" aria-label="Nexus Shorts dashboard">
+        <span class="brand-mark">N</span><span class="brand-copy"><b>NEXUS</b><small>SHORTS STUDIO</small></span>
+      </a>
+      <div class="nav-caption">WORKSPACE</div>
+      <nav class="side-nav" aria-label="Main navigation">
+        <button class="nav-link active" data-page="dashboard"><span class="nav-icon">⌂</span>Dashboard</button>
+        <button class="nav-link" data-page="create"><span class="nav-icon">✂</span>Create Shorts</button>
+        <button class="nav-link" data-page="server"><span class="nav-icon">◉</span>Server Control</button>
+        <button class="nav-link" data-page="projects"><span class="nav-icon">▤</span>My Projects</button>
+        <button class="nav-link" data-page="history"><span class="nav-icon">↧</span>Download History</button>
+      </nav>
+      <div class="nav-caption nav-caption-lower">PREFERENCES</div>
+      <nav class="side-nav">
+        <button class="nav-link" data-page="settings"><span class="nav-icon">⚙</span>Settings</button>
+        <button class="nav-link" data-page="about"><span class="nav-icon">ⓘ</span>About</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="mode-card"><span class="mode-dot"></span><div><b id="sidebar-mode">Checking service</b><small>Processing mode</small></div></div>
+        <span class="sidebar-version">NEXUS STUDIO <span>v1.0</span></span>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" id="menu-toggle" aria-label="Toggle navigation">☰</button>
+        <div class="breadcrumb"><span>Workspace</span><b>/</b><strong id="page-title">Dashboard</strong></div>
+        <div class="topbar-right">
+          <div class="connection-pill"><span class="status-dot" id="top-status-dot"></span><span id="top-status-text">Checking connection</span></div>
+          <div class="avatar">N</div>
+        </div>
+      </header>
+
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      <div class="content">
+        <section class="page active" id="page-dashboard">
+          <div class="page-heading">
+            <div><p class="eyebrow">OVERVIEW</p><h1>Your creative workspace</h1><p class="muted">Create vertical clips from your videos, all in one place.</p></div>
+            <button class="button button-primary" data-page="create"><span>＋</span> Create Shorts</button>
+          </div>
+          <div class="stat-grid">
+            <article class="stat-card"><div class="stat-label">VIDEOS PROCESSED <span class="stat-glyph violet">◫</span></div><div class="stat-number" id="stat-videos">—</div><div class="stat-note">From your saved projects</div></article>
+            <article class="stat-card"><div class="stat-label">SHORTS GENERATED <span class="stat-glyph mint">▣</span></div><div class="stat-number" id="stat-shorts">—</div><div class="stat-note">Successfully rendered clips</div></article>
+            <article class="stat-card"><div class="stat-label">ACTIVE JOBS <span class="stat-glyph amber">◷</span></div><div class="stat-number" id="stat-active">—</div><div class="stat-note">Queued or processing now</div></article>
+            <article class="stat-card"><div class="stat-label">PROCESSING SERVICE <span class="stat-glyph blue">⌁</span></div><div class="service-value" id="dashboard-service">Checking…</div><div class="stat-note" id="dashboard-mode">Checking configured mode</div></article>
+          </div>
+          <div class="dashboard-grid">
+            <article class="panel panel-main">
+              <div class="panel-header"><div><p class="eyebrow">RECENT ACTIVITY</p><h2>Recent projects</h2></div><button class="text-button" data-page="projects">View all <span>→</span></button></div>
+              <div id="dashboard-projects" class="project-list"><div class="empty-state">Your projects will appear here after you create a job.</div></div>
+            </article>
+            <article class="panel quick-panel">
+              <p class="eyebrow">READY WHEN YOU ARE</p><h2>Make something vertical.</h2><p class="muted">Turn a long-form video into timestamp-selected vertical clips. Original Mode does not use AI highlight detection.</p>
+              <button class="button button-primary full-button" data-page="create">Start a project <span>→</span></button>
+              <div class="quick-separator"></div>
+              <div class="mini-status"><span class="status-dot" id="quick-status-dot"></span><div><b id="quick-status">Checking service…</b><small id="quick-mode">Server connection</small></div><button class="icon-button" id="quick-check" title="Check server status">↻</button></div>
+            </article>
+          </div>
+          <article class="panel recent-downloads">
+            <div class="panel-header"><div><p class="eyebrow">YOUR OUTPUTS</p><h2>Recent outputs</h2></div><button class="text-button" data-page="history">Download history <span>→</span></button></div>
+            <div id="dashboard-downloads" class="download-list"><div class="empty-state">Completed clip downloads will appear here.</div></div>
+          </article>
+        </section>
+
+        <section class="page" id="page-create">
+          <div class="page-heading"><div><p class="eyebrow">VIDEO WORKFLOW</p><h1>Create Shorts</h1><p class="muted">Set up a timestamp-based clipping job. Original Mode does not detect viral moments.</p></div><span class="mode-badge" id="create-mode-badge">Checking mode…</span></div>
+          <div class="create-grid">
+            <article class="panel create-form-panel">
+              <div class="step-heading"><span class="step-number">01</span><div><h2>Choose your source</h2><p class="muted">Use a supported YouTube URL or upload a local video.</p></div></div>
+              <div class="source-tabs"><button class="source-tab active" data-source="youtube">YouTube URL</button><button class="source-tab" data-source="upload">Upload video</button></div>
+              <div id="youtube-source" class="source-panel">
+                <label for="youtube-url">YouTube video URL</label><div class="input-row"><input id="youtube-url" type="url" placeholder="https://www.youtube.com/watch?v=…" autocomplete="url"><button class="button button-secondary" id="validate-url">Validate</button></div>
+                <div id="youtube-validation" class="field-hint">Only publicly available URLs are checked. Do not submit restricted content.</div>
+                <div class="field source-resolution"><label for="source-resolution">Maximum source resolution</label><select id="source-resolution"><option value="2160">4K Ultra HD</option><option value="1440">2K QHD</option><option value="1080">1080p FHD</option><option value="720">720p HD</option><option value="360">360p Fast</option></select></div>
+              </div>
+              <div id="upload-source" class="source-panel hidden">
+                <label class="upload-zone" for="video-file"><span class="upload-symbol">↑</span><b>Choose a video to upload</b><span>MP4, MKV, MOV or WEBM</span><small id="upload-limit">Maximum size is set by the server.</small></label>
+                <input id="video-file" type="file" accept=".mp4,.mkv,.mov,.webm,video/mp4,video/x-matroska,video/quicktime,video/webm" hidden>
+                <div id="selected-file" class="selected-file hidden"></div>
+              </div>
+              <div id="preview-wrap" class="preview-wrap hidden"><div class="preview-label">SOURCE PREVIEW</div><video id="source-preview" controls playsinline></video><div id="youtube-preview"></div></div>
+
+              <div class="form-divider"></div>
+              <div class="step-heading"><span class="step-number">02</span><div><h2>Configure your clips</h2><p class="muted">Original automatic timing uses 35 seconds for sources ≥ 120 seconds.</p></div></div>
+              <div class="form-grid">
+                <div class="field"><label for="clip-count">Number of Shorts</label><select id="clip-count"><option value="5">5 Shorts</option><option value="10">10 Shorts</option><option value="15">15 Shorts</option><option value="20">20 Shorts</option><option value="custom">Custom</option></select><input id="custom-count" class="custom-field hidden" type="number" min="1" max="20" value="5" aria-label="Custom number of Shorts"></div>
+                <div class="field"><label for="quality">Output quality</label><select id="quality"><option value="1080p">1080p FHD</option><option value="720p">720p HD</option></select></div>
+                <div class="field field-wide"><label for="layout">Video layout</label><select id="layout"><option value="blurred">Blurred background</option><option value="zoomed_blurred">Zoomed + blurred background</option><option value="center_crop">Full-screen center crop</option></select></div>
+                <div class="field"><label for="clip-duration">Clip timing</label><select id="clip-duration"><option value="automatic">Original automatic mode</option><option value="15">Custom duration · 15 sec</option><option value="30">Custom duration · 30 sec</option><option value="35">Custom duration · 35 sec</option><option value="45">Custom duration · 45 sec</option><option value="60">Custom duration · 60 sec</option><option value="custom">Custom duration…</option><option value="range">Custom start / end range</option></select><input id="custom-duration" class="custom-field hidden" type="number" min="1" max="180" step="0.1" placeholder="Seconds (1–180)" aria-label="Custom clip duration in seconds"><div id="custom-range" class="custom-range hidden"><input id="range-start" type="number" min="0" step="0.1" placeholder="Start (seconds)" aria-label="Start timestamp in seconds"><input id="range-end" type="number" min="0.1" step="0.1" placeholder="End (seconds)" aria-label="End timestamp in seconds"></div></div>
+                <div class="field"><label for="audio">Audio</label><select id="audio"><option value="normalize">Normalize to -14 LUFS (AAC)</option><option value="original">Original audio (AAC)</option></select></div>
+              </div>
+              <div class="form-note"><span>ⓘ</span><p>Clip positions are distributed across the source video. The service must be online before processing can begin.</p></div>
+              <button class="button button-primary full-button launch-button" id="launch-job" disabled><span>✦</span> Create clipping job</button>
+            </article>
+            <aside class="panel processing-panel">
+              <p class="eyebrow">JOB STATUS</p><h2 id="job-panel-title">Ready to create</h2>
+              <div id="job-placeholder" class="job-placeholder"><div class="placeholder-ring">✂</div><p>Your job details and real processing progress will show here.</p></div>
+              <div id="job-progress" class="job-progress hidden">
+                <div class="job-id-row"><span>JOB ID</span><code id="job-id-value">—</code></div>
+                <div class="job-meta"><span>Source</span><b id="job-source-name">—</b></div>
+                <div class="job-meta"><span>Requested Shorts</span><b id="job-requested">—</b></div>
+                <div class="job-meta"><span>Current step</span><b id="job-step">Waiting for worker</b></div>
+                <div class="progress-label"><span>Clip rendering progress</span><b><span id="job-count">0 / 0</span> · <span id="job-percent">0%</span></b></div>
+                <div class="progress-track"><div id="job-progress-bar"></div></div>
+                <p class="progress-disclaimer">Progress reflects completed clips; no estimated time is shown.</p>
+                <div id="job-error" class="job-error hidden"></div>
+                <div id="job-results" class="job-results hidden"></div>
+                <div class="job-actions"><button class="button button-secondary hidden" id="cancel-job">Cancel job</button><button class="button button-secondary hidden" id="retry-job">Retry failed job</button></div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="page" id="page-server">
+          <div class="page-heading"><div><p class="eyebrow">INFRASTRUCTURE</p><h1>Server Control Center</h1><p class="muted">Check the processing service, wake a configured free web service, and inspect health.</p></div><span class="mode-badge" id="server-mode-badge">Checking mode…</span></div>
+          <div class="server-grid">
+            <article class="panel server-status-panel">
+              <div class="panel-header"><div><p class="eyebrow">PROCESSING SERVICE</p><h2>Service status</h2></div><span class="status-chip" id="server-state-chip">CHECKING</span></div>
+              <div class="server-status-display"><span class="server-orb" id="server-orb"></span><div><h3 id="server-state">Checking…</h3><p id="server-message" class="muted">Requesting a health check from the configured backend.</p></div></div>
+              <div class="server-metrics"><div><span>RESPONSE TIME</span><b id="server-latency">—</b></div><div><span>LAST SUCCESSFUL CHECK</span><b id="server-last-check">—</b></div></div>
+              <div class="server-actions"><button class="button button-primary" id="start-server">Start / Wake service</button><button class="button button-secondary" id="check-server">Check status</button><button class="button button-secondary hidden" id="retry-server">Retry connection</button></div>
+              <p class="server-note" id="server-mode-note"></p>
+            </article>
+            <article class="panel info-panel">
+              <p class="eyebrow">DEPLOYMENT MODE</p><h2 id="server-info-title">Free Testing Mode</h2><p id="server-info-copy" class="muted">A health request can wake a sleeping Render Free Web Service. Cold starts may take a while, and this mode is for short tests only.</p>
+              <div class="info-divider"></div><div class="info-row"><span>Worker health</span><b id="worker-health-label">Checking</b></div><div class="info-row"><span>Long-running jobs</span><b id="long-job-label">Not reliable</b></div><div class="info-row"><span>Stop control</span><b>Not configured</b></div>
+              <p class="small-muted">Reliable processing requires a paid Render Background Worker and persistent job/storage services. Background Workers do not expose a public health URL; status is derived from worker heartbeats.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="page" id="page-projects">
+          <div class="page-heading"><div><p class="eyebrow">WORKSPACE</p><h1>My Projects</h1><p class="muted">Jobs saved in this browser. Each job token is stored locally for access.</p></div><button class="button button-primary" data-page="create">＋ New project</button></div>
+          <div class="panel table-panel"><div id="projects-list" class="project-list"><div class="empty-state">No projects yet. Create a job to see it here.</div></div></div>
+        </section>
+
+        <section class="page" id="page-history">
+          <div class="page-heading"><div><p class="eyebrow">YOUR OUTPUTS</p><h1>Download History</h1><p class="muted">Download links are short-lived and generated only for your completed jobs.</p></div></div>
+          <div class="panel table-panel"><div id="history-list" class="download-list"><div class="empty-state">No completed downloads yet.</div></div></div>
+        </section>
+
+        <section class="page" id="page-settings">
+          <div class="page-heading"><div><p class="eyebrow">PREFERENCES</p><h1>Settings</h1><p class="muted">Connection and storage details for this browser.</p></div></div>
+          <article class="panel settings-panel"><p class="eyebrow">API CONNECTION</p><h2>Backend endpoint</h2><p class="muted">This public API URL is set at frontend build time. It is not a secret.</p><div class="config-value" id="api-base-value">—</div><div class="info-divider"></div><div class="info-row"><span>Saved project credentials</span><b>Stored in this browser only</b></div><button class="text-button danger-text" id="clear-local-data">Forget saved projects on this browser</button></article>
+        </section>
+
+        <section class="page" id="page-about">
+          <div class="page-heading"><div><p class="eyebrow">ABOUT NEXUS</p><h1>Purpose-built for vertical video</h1><p class="muted">A lightweight interface backed by asynchronous video processing.</p></div></div>
+          <article class="panel about-panel"><span class="brand-mark large-mark">N</span><h2>Nexus Shorts Studio</h2><p class="muted">Original Mode extracts clips from spaced timestamps. It does not identify viral or semantically important moments with AI.</p><div class="info-divider"></div><div class="info-row"><span>Video engine</span><b>FFmpeg + FFprobe</b></div><div class="info-row"><span>Processing</span><b>Background worker</b></div><div class="info-row"><span>Storage</span><b>Cloudflare R2 (when configured)</b></div></article>
+        </section>
+      </div>
+      <footer class="footer"><span>© Nexus Shorts Studio</span><span>Timestamp-based Original Mode · No AI highlight claims</span></footer>
+    </main>
+  </div>
+  <script src="config/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
